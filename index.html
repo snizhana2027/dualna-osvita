@@ -95,7 +95,7 @@ section{scroll-margin-top:84px}
 
 /* --- таблиця груп --- */
 .tablewrap{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
-table{border-collapse:collapse;width:100%;min-width:620px;font-size:.92rem}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:.92rem}
 th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
 th{font-size:.73rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:500;white-space:nowrap}
 td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -105,6 +105,12 @@ tbody tr:hover td{background:var(--band)}
 .bar i{display:block;height:100%}
 .bar .u{background:var(--uni)}.bar .e{background:var(--ent)}
 .grp{font-family:var(--mono);font-weight:500}
+tr.tsub td{background:var(--band);font-family:var(--display);text-transform:uppercase;letter-spacing:.09em;font-size:.73rem;color:var(--accent2);padding-block:7px}
+tfoot td{background:var(--band);font-weight:700;border-top:2px solid var(--line);border-bottom:none}
+details.tabletoggle{border-bottom:1px solid var(--line)}
+details.tabletoggle .tablewrap{margin-top:14px}
+tfoot .grp{font-family:var(--display);text-transform:uppercase;letter-spacing:.07em;font-size:.8rem;font-weight:500}
+
 
 /* --- партнери --- */
 .partners{display:grid;gap:26px;grid-template-columns:1fr}
@@ -120,9 +126,9 @@ tbody tr:hover td{background:var(--band)}
 .gallery{display:grid;gap:20px;grid-template-columns:1fr}
 @media (min-width:560px){.gallery{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:900px){.gallery{grid-template-columns:repeat(3,1fr)}}
-.gallery.few{grid-template-columns:repeat(2,1fr);max-width:700px}
+.gallery.few{grid-template-columns:repeat(2,1fr);max-width:840px}
 figure{margin:0;display:flex;flex-direction:column;gap:9px;min-width:0}
-.shot{aspect-ratio:3/4;max-width:100%;background:var(--band);border:1.5px dashed var(--line);
+.shot{aspect-ratio:1/1;max-width:100%;background:var(--band);border:1.5px dashed var(--line);
       display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;
       font-family:var(--mono);font-size:.78rem;color:var(--muted);line-height:1.5;overflow:hidden}
 .shot img{width:100%;height:100%;object-fit:cover;display:block}
@@ -179,6 +185,59 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
 .modal-foot a,.modal-foot button{font-family:var(--mono);font-size:.73rem;letter-spacing:.07em;text-transform:uppercase;
   color:var(--accent);background:none;border:0;border-bottom:1px solid currentColor;padding:0 0 1px;cursor:pointer}
 .modal-foot a:hover,.modal-foot button:hover{color:var(--accent2)}
+
+/* --- оживлення --- */
+.statband{background:var(--headerbg);color:#fff;border-block:3px solid var(--ent)}
+.statband .wrap{padding-block:clamp(34px,5.5vw,62px);display:grid;gap:clamp(24px,4vw,46px);grid-template-columns:1fr}
+@media (min-width:860px){.statband .wrap{grid-template-columns:1fr .92fr;align-items:center}}
+.statband .txt{display:flex;flex-direction:column;gap:clamp(14px,2vw,20px);min-width:0}
+.statband .eyebrow{color:var(--ent);display:flex;align-items:center;gap:11px}
+.statband .eyebrow::before{content:"";flex:0 0 auto;width:26px;height:2px;background:var(--ent)}
+.statband .lead{font-family:var(--display);font-weight:400;letter-spacing:.012em;
+  font-size:clamp(1.2rem,2.8vw,1.95rem);line-height:1.28;max-width:24ch;text-wrap:balance}
+.statband .src{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:.76rem;color:rgba(255,255,255,.8)}
+.statband .src i{display:block;height:2px;width:48px;background:var(--ent);flex:0 0 auto}
+.statband .src a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:1px}
+.statband .src a:hover{color:var(--ent);border-bottom-color:currentColor}
+.schema{width:100%;max-width:470px;height:auto;display:block;margin-inline:auto}
+.schema .lbl{font-family:var(--display);font-size:15px;letter-spacing:.09em;text-transform:uppercase}
+.schema .sub{font-family:var(--mono);font-size:11px;letter-spacing:.04em}
+.schema .track{stroke-dasharray:7 8}
+.schema .dot{offset-path:path("M118 104 C 118 160, 342 122, 342 176");offset-distance:0%;offset-rotate:0deg}
+@media (prefers-reduced-motion:no-preference){
+  .statband.rv .src i{width:0;transition:width 1s cubic-bezier(.22,.8,.2,1) .25s}
+  .statband.rv.in .src i{width:48px}
+  .schema .track{stroke-dashoffset:120;transition:stroke-dashoffset 1.6s ease .2s}
+  .statband.in .schema .track{stroke-dashoffset:0}
+  .statband.in .schema .dot{animation:ride 4.6s cubic-bezier(.45,0,.55,1) .6s infinite alternate}
+  @keyframes ride{from{offset-distance:0%}to{offset-distance:100%}}50%{opacity:.4;r:17}}
+}
+.sechead .eyebrow{display:flex;align-items:center;gap:11px}
+.sechead .eyebrow::before{content:"";flex:0 0 auto;width:26px;height:2px;background:var(--ent)}
+.cards .card:nth-child(2){border-top-color:var(--ent)}
+.card,.call,.doc-item,.stat,.shot.filled img{transition:transform .25s ease,box-shadow .25s ease,background .2s ease}
+.card:hover,.call:hover{transform:translateY(-3px)}
+.doc-item:hover{background:#FAFCFF}
+.stat{position:relative}
+.stat::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--ent);
+  transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.stat:hover::after{transform:scaleX(1)}
+.step{align-items:start}
+.step .n{display:grid;place-items:center;width:30px;min-width:30px;height:30px;aspect-ratio:1;border-radius:999px;
+  background:var(--uni);color:#fff;font-size:.76rem;padding:0;margin-top:1px}
+.step:hover .n{background:var(--ent);color:#241B05}
+.navlink.active{opacity:1;border-bottom-color:var(--ent)}
+.shot.filled{cursor:zoom-in}
+.shot.filled:hover img{transform:scale(1.03)}
+.lightbox{position:fixed;inset:0;z-index:30;background:rgba(8,12,22,.92);
+  display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.lightbox[hidden]{display:none !important}
+.lightbox img{max-width:100%;max-height:92vh;object-fit:contain;display:block}
+@media (prefers-reduced-motion:no-preference){
+  .rv{opacity:0;transform:translateY(16px);transition:opacity .65s ease,transform .65s ease}
+  .rv.in{opacity:1;transform:none}
+}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 </style>
@@ -225,6 +284,28 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
     <div class="stat"><b>11</b><span>академічних груп</span></div>
     <div class="stat"><b>23</b><span>підприємства</span></div>
     <div class="stat"><b>55&nbsp;%</b><span>годин на роботі</span></div>
+  </div>
+</div>
+
+<div class="statband">
+  <div class="wrap">
+    <div class="txt">
+      <p class="lead">Два місця навчання, одна освітня програма і один диплом.</p>
+    </div>
+      <svg class="schema" viewBox="0 0 470 250" role="img" aria-label="Схема: здобувач поєднує навчання в університеті з роботою на підприємстві">
+        <path class="track" d="M118 104 C 118 160, 342 122, 342 176" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2"/>
+        <g>
+          <rect x="22" y="34" width="192" height="70" fill="#2E5396" stroke="rgba(255,255,255,.45)" stroke-width="1.5"/>
+          <text x="118" y="64" text-anchor="middle" fill="#fff" class="lbl">Університет</text>
+          <text x="118" y="84" text-anchor="middle" fill="rgba(255,255,255,.75)" class="sub">лекції · лабораторні</text>
+        </g>
+        <g>
+          <rect x="246" y="176" width="202" height="70" fill="#E0A519"/>
+          <text x="347" y="206" text-anchor="middle" fill="#241B05" class="lbl">Підприємство</text>
+          <text x="347" y="226" text-anchor="middle" fill="rgba(36,27,5,.8)" class="sub">робоче місце · наставник</text>
+        </g>
+        <circle class="dot" r="9" fill="#fff" stroke="#E0A519" stroke-width="3"/>
+      </svg>
   </div>
 </div>
 
@@ -307,26 +388,31 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
       <h2>Групи й обсяги</h2>
       <p class="lede">Обсяг на робочому місці рахується з навчального плану групи й округлюється до цілих кредитів.</p>
     </div>
-    <div class="tablewrap">
+    <details class="tabletoggle">
+      <summary>Показати розподіл по групах</summary>
+      <div class="tablewrap">
       <table>
         <thead>
-          <tr><th>Група</th><th>Спеціальність</th><th>Здобувачів</th><th>На робочому місці</th><th>Разом за рік</th><th>Розподіл</th></tr>
+          <tr><th>Група</th><th>Здобувачів</th><th>На робочому місці</th><th>Разом за рік</th><th>Розподіл</th></tr>
         </thead>
         <tbody>
-          <tr><td class="grp">11-ім</td><td>Агроінженерія</td><td class="num">5</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
-          <tr><td class="grp">12-ім</td><td>Агроінженерія</td><td class="num">5</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
-          <tr><td class="grp">21к-ім</td><td>Агроінженерія</td><td class="num">1</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
-          <tr><td class="grp">31-ім</td><td>Агроінженерія</td><td class="num">4</td><td class="num">975 год · 32,5 кр.</td><td class="num">1770 год</td><td><span class="bar"><i class="u" style="flex:795"></i><i class="e" style="flex:975"></i></span></td></tr>
-          <tr><td class="grp">31к-ім</td><td>Агроінженерія</td><td class="num">4</td><td class="num">1005 год · 33,5 кр.</td><td class="num">1830 год</td><td><span class="bar"><i class="u" style="flex:825"></i><i class="e" style="flex:1005"></i></span></td></tr>
-          <tr><td class="grp">41-ім</td><td>Агроінженерія</td><td class="num">3</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
-          <tr><td class="grp">43-ім</td><td>Агроінженерія</td><td class="num">2</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
-          <tr><td class="grp">11м-ім</td><td>Агроінженерія, магістри</td><td class="num">14</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
-          <tr><td class="grp">31-зм</td><td>Геодезія та землеустрій</td><td class="num">1</td><td class="num">675 год · 22,5 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:1125"></i><i class="e" style="flex:675"></i></span></td></tr>
-          <tr><td class="grp">41-зм</td><td>Геодезія та землеустрій</td><td class="num">1</td><td class="num">675 год · 22,5 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:1125"></i><i class="e" style="flex:675"></i></span></td></tr>
-          <tr><td class="grp">11м-зм</td><td>Геодезія та землеустрій, магістри</td><td class="num">1</td><td class="num">675 год · 22,5 кр.</td><td class="num">1440 год</td><td><span class="bar"><i class="u" style="flex:765"></i><i class="e" style="flex:675"></i></span></td></tr>
+          <tr class="tsub"><td colspan="5">Агроінженерія · 38 здобувачів</td></tr>
+          <tr><td class="grp">11-ім</td><td class="num">5</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
+          <tr><td class="grp">12-ім</td><td class="num">5</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
+          <tr><td class="grp">21к-ім</td><td class="num">1</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
+          <tr><td class="grp">31-ім</td><td class="num">4</td><td class="num">975 год · 32,5 кр.</td><td class="num">1770 год</td><td><span class="bar"><i class="u" style="flex:795"></i><i class="e" style="flex:975"></i></span></td></tr>
+          <tr><td class="grp">31к-ім</td><td class="num">4</td><td class="num">1005 год · 33,5 кр.</td><td class="num">1830 год</td><td><span class="bar"><i class="u" style="flex:825"></i><i class="e" style="flex:1005"></i></span></td></tr>
+          <tr><td class="grp">41-ім</td><td class="num">3</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
+          <tr><td class="grp">43-ім</td><td class="num">2</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
+          <tr><td class="grp">11м-ім</td><td class="num">14</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
+          <tr class="tsub"><td colspan="5">Геодезія та землеустрій · 3 здобувачі</td></tr>
+          <tr><td class="grp">31-зм</td><td class="num">1</td><td class="num">675 год · 22,5 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:1125"></i><i class="e" style="flex:675"></i></span></td></tr>
+          <tr><td class="grp">41-зм</td><td class="num">1</td><td class="num">675 год · 22,5 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:1125"></i><i class="e" style="flex:675"></i></span></td></tr>
+          <tr><td class="grp">11м-зм</td><td class="num">1</td><td class="num">675 год · 22,5 кр.</td><td class="num">1440 год</td><td><span class="bar"><i class="u" style="flex:765"></i><i class="e" style="flex:675"></i></span></td></tr>
         </tbody>
       </table>
-    </div>
+      </div>
+    </details>
     <p style="margin-top:14px;font-size:.86rem;color:var(--muted)">Здобувачі стають на робоче місце з 1, 12 або 19 жовтня 2026 року — залежно від дати наказу — і працюють до 30 червня 2027 року.</p>
   </div>
 </section>
@@ -401,7 +487,6 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
     <div class="sechead">
       <p class="eyebrow">Як це виглядає</p>
       <h2>Наші здобувачі на роботі</h2>
-      <p class="lede">Фотографії з підприємств, де наші здобувачі працюють за фахом.</p>
     </div>
     <div class="gallery few">
       <figure>
@@ -409,6 +494,12 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
       </figure>
       <figure>
         <div class="shot filled"><img src="zdobuvach-02.jpg" alt="Здобувач на робочому місці біля трактора"></div>
+      </figure>
+      <figure>
+        <div class="shot filled"><img src="zdobuvach-03.jpg" alt="Здобувач за складанням електронного блока"></div>
+      </figure>
+      <figure>
+        <div class="shot filled"><img src="zdobuvach-04.jpg" alt="Здобувач перевіряє зібраний блок за планшетом"></div>
       </figure>
     </div>
     <p style="margin-top:16px;font-size:.86rem;color:var(--muted)">На публікацію знімків отримано згоду здобувачів.</p>
@@ -555,5 +646,64 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) hide(); });
 })();
 </script>
+
+<div class="lightbox" id="lightbox" hidden><img src="" alt="Фотографія здобувача на робочому місці"></div>
+<script>
+(function(){
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var has = 'IntersectionObserver' in window;
+  var sel = '.sechead,.cards,.steps,.partners,.gallery,.docs,.calls,.contact,.stats,.statband';
+  var els = [].slice.call(document.querySelectorAll(sel));
+  if (!rm && has) {
+    els.forEach(function(e){ e.classList.add('rv'); });
+    var io = new IntersectionObserver(function(xs){
+      xs.forEach(function(x){ if (x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } });
+    }, {rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){ io.observe(e); });
+  }
+  function count(el){
+    var t = el.textContent, m = t.match(/\d+/);
+    if (!m) return;
+    var end = +m[0], pre = t.slice(0, m.index), post = t.slice(m.index + m[0].length), st = 0;
+    function frame(ts){
+      if (!st) st = ts;
+      var p = Math.min(1, (ts - st) / 900);
+      el.textContent = pre + Math.round(end * (1 - Math.pow(1 - p, 3))) + post;
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  var stats = [].slice.call(document.querySelectorAll('.stat b'));
+  if (!rm && has) {
+    var io2 = new IntersectionObserver(function(xs){
+      xs.forEach(function(x){ if (x.isIntersecting){ count(x.target); io2.unobserve(x.target); } });
+    }, {threshold:.6});
+    stats.forEach(function(e){ io2.observe(e); });
+  }
+  var links = [].slice.call(document.querySelectorAll('.navlink'));
+  if (has) {
+    var io3 = new IntersectionObserver(function(xs){
+      xs.forEach(function(x){
+        if (x.isIntersecting) links.forEach(function(a){
+          a.classList.toggle('active', a.getAttribute('href') === '#' + x.target.id);
+        });
+      });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    links.forEach(function(a){
+      var s = document.querySelector(a.getAttribute('href'));
+      if (s) io3.observe(s);
+    });
+  }
+  var lb = document.getElementById('lightbox'), lbi = lb && lb.querySelector('img');
+  [].slice.call(document.querySelectorAll('.shot.filled img')).forEach(function(img){
+    img.addEventListener('click', function(){ lbi.src = img.currentSrc || img.src; lb.hidden = false; });
+  });
+  if (lb) {
+    lb.addEventListener('click', function(){ lb.hidden = true; });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') lb.hidden = true; });
+  }
+})();
+</script>
+
 </body>
 </html>
