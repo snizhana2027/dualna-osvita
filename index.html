@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дуальна освіта на ФІПТ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Макет: повноширинні смуги, усередині колонка 1100px; наскрізний мотив — смуга поділу годин «університет / робоче місце» */
+:root{
+  --paper:#F1F4F9; --surface:#FFFFFF; --ink:#131A2A; --muted:#566077; --line:#D2D9E6;
+  --uni:#1E3A72; --ent:#E0A519; --band:#E4E9F3;
+  --accent:#1E3A72; --accent2:#8A6200;
+  --headerbg:#17315F; --headerfg:#F5F8FD; color-scheme:light;
+  --display:'Oswald','Arial Narrow',system-ui,sans-serif;
+  --body:'PT Serif',Georgia,'Times New Roman',serif;
+  --mono:'IBM Plex Mono','Courier New',monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.62;
+     -webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--headerbg)}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,.eyebrow,.navlink,.stat b,th{font-family:var(--display);font-weight:500;letter-spacing:.01em}
+h1,h2,h3{text-wrap:balance;margin:0}
+h1{font-size:clamp(2.4rem,7vw,4.1rem);line-height:1.02;text-transform:uppercase;letter-spacing:.005em;font-weight:600}
+h2{font-size:clamp(1.5rem,3.4vw,2.1rem);text-transform:uppercase;letter-spacing:.03em}
+h3{font-size:1.07rem;text-transform:uppercase;letter-spacing:.06em}
+p{margin:0}
+a{color:inherit}
+.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.17em;color:var(--muted)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* --- шапка --- */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--headerbg);color:var(--headerfg);
+           border-bottom:3px solid var(--ent)}
+.top .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px;padding-block:11px}
+.brand{font-family:var(--display);text-transform:uppercase;letter-spacing:.1em;font-size:.86rem;font-weight:600;margin-right:auto}
+nav{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+.navlink{font-size:.78rem;text-transform:uppercase;letter-spacing:.09em;text-decoration:none;opacity:.85;white-space:nowrap;
+         padding-bottom:2px;border-bottom:1.5px solid transparent}
+.navlink:hover,.navlink:focus-visible{opacity:1;border-bottom-color:currentColor}
+
+/* --- секції --- */
+section{scroll-margin-top:84px}
+.band{background:var(--band)}
+.band-surface{background:var(--surface)}
+.sec{padding-block:clamp(44px,6vw,76px)}
+.sechead{display:flex;flex-direction:column;gap:8px;margin-bottom:clamp(22px,3vw,34px);max-width:62ch}
+.lede{font-size:1.12rem;color:var(--muted)}
+
+/* --- герой --- */
+.hero{padding-block:clamp(40px,7vw,86px) clamp(34px,5vw,56px)}
+.hero-grid{display:grid;gap:clamp(26px,4vw,52px);grid-template-columns:1fr}
+@media (min-width:860px){.hero-grid{grid-template-columns:1.15fr .85fr;align-items:end}}
+.hero p.intro{font-size:1.2rem;max-width:34ch}
+.hero .kicker{margin-top:18px;max-width:46ch;color:var(--muted)}
+
+/* смуга поділу годин */
+.split{display:flex;flex-direction:column;gap:10px;min-width:0}
+.splitbar{display:flex;height:58px;border:1px solid var(--line);background:var(--surface);overflow:hidden}
+.splitbar span{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.82rem;color:#fff;
+               font-variant-numeric:tabular-nums}
+.splitbar .u{background:var(--uni);color:#FFFFFF}
+.splitbar .e{background:var(--ent);color:#241B05}
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:.84rem;color:var(--muted)}
+.legend i{display:inline-block;width:11px;height:11px;margin-right:7px;vertical-align:-1px}
+.legend .u{background:var(--uni)}.legend .e{background:var(--ent)}
+
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:clamp(28px,4vw,44px)}
+@media (min-width:720px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--surface);padding:18px 16px;display:flex;flex-direction:column;gap:3px}
+.stat b{font-size:2.15rem;line-height:1;font-weight:600;font-variant-numeric:tabular-nums}
+.stat span{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-family:var(--display)}
+
+/* --- картки принципів --- */
+.cards{display:grid;gap:22px;grid-template-columns:1fr}
+@media (min-width:760px){.cards{grid-template-columns:repeat(3,1fr)}}
+.card{display:flex;flex-direction:column;gap:9px;padding-top:16px;border-top:2px solid var(--accent);min-width:0}
+.card p{color:var(--muted);font-size:.97rem}
+
+/* --- кроки --- */
+.steps{display:grid;gap:0;counter-reset:s}
+.step{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;padding-block:20px;border-top:1px solid var(--line);min-width:0}
+.step:last-child{border-bottom:1px solid var(--line)}
+.step .n{font-family:var(--mono);font-size:.82rem;color:var(--accent2);padding-top:4px}
+.step h3{grid-column:2}
+.step p{grid-column:2;color:var(--muted);font-size:.97rem}
+.step .doc{grid-column:2;font-family:var(--mono);font-size:.76rem;color:var(--muted);letter-spacing:.02em}
+.step .doc a.clause{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+.step .doc a.clause:hover,.step .doc a.clause:focus-visible{color:var(--accent2)}
+
+/* --- таблиця груп --- */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:.92rem}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:.73rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:500;white-space:nowrap}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--band)}
+.bar{display:flex;height:9px;width:112px;border:1px solid var(--line)}
+.bar i{display:block;height:100%}
+.bar .u{background:var(--uni)}.bar .e{background:var(--ent)}
+.grp{font-family:var(--mono);font-weight:500}
+
+/* --- партнери --- */
+.partners{display:grid;gap:26px;grid-template-columns:1fr}
+@media (min-width:700px){.partners{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.partners{grid-template-columns:repeat(3,1fr)}}
+.pgroup{min-width:0}
+.pgroup h3{color:var(--accent2);font-size:.82rem;letter-spacing:.1em;margin-bottom:10px}
+.pgroup ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.pgroup li{font-size:.95rem;padding-left:15px;position:relative}
+.pgroup li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--accent)}
+
+/* --- галерея --- */
+.gallery{display:grid;gap:20px;grid-template-columns:1fr}
+@media (min-width:560px){.gallery{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:900px){.gallery{grid-template-columns:repeat(3,1fr)}}
+figure{margin:0;display:flex;flex-direction:column;gap:9px;min-width:0}
+.shot{aspect-ratio:4/3;max-width:100%;background:var(--band);border:1.5px dashed var(--line);
+      display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;
+      font-family:var(--mono);font-size:.78rem;color:var(--muted);line-height:1.5;overflow:hidden}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* --- документи --- */
+.docs{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+@media (min-width:700px){.docs{grid-template-columns:repeat(2,1fr)}}
+.doc-item{background:var(--surface);padding:15px 17px;display:grid;grid-template-columns:auto 1fr;gap:3px 14px;min-width:0}
+.doc-item .tag{font-family:var(--mono);font-size:.78rem;color:var(--accent2);grid-row:span 2;padding-top:2px}
+.doc-item b{font-family:var(--display);font-weight:500;font-size:1rem}
+.doc-item span{color:var(--muted);font-size:.9rem}
+.doc-item .links{grid-column:2;display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:8px}
+.doc-item .links a{font-family:var(--mono);font-size:.73rem;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+.doc-item .links a:hover,.doc-item .links a:focus-visible{color:var(--accent2)}
+.doc-item .soon{grid-column:2;font-style:normal;font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+/* --- питання --- */
+details{border-top:1px solid var(--line);padding-block:14px}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-family:var(--display);font-size:1.02rem;letter-spacing:.01em;list-style:none;display:flex;gap:14px;align-items:flex-start}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";font-family:var(--mono);color:var(--accent2);line-height:1.4}
+details[open] summary::before{content:"–"}
+details p{margin-top:9px;padding-left:28px;color:var(--muted);font-size:.97rem;max-width:68ch}
+
+/* --- заклики --- */
+.calls{display:grid;gap:22px;grid-template-columns:1fr}
+@media (min-width:780px){.calls{grid-template-columns:repeat(2,1fr)}}
+.call{border:1px solid var(--line);background:var(--surface);padding:24px 22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.call h3{color:var(--accent)}
+.call p{color:var(--muted);font-size:.97rem}
+.call ol{margin:0;padding-left:1.1em;color:var(--muted);font-size:.95rem;display:flex;flex-direction:column;gap:5px}
+
+/* --- контакти, підвал --- */
+.contact{display:grid;gap:18px 40px;grid-template-columns:1fr}
+@media (min-width:700px){.contact{grid-template-columns:repeat(2,1fr)}}
+.contact .row{display:flex;flex-direction:column;gap:2px}
+.contact .row span{font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-family:var(--display)}
+.contact .row b{font-weight:400;font-size:1.02rem}
+.ph{color:var(--accent2);font-family:var(--mono);font-size:.92rem}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:.84rem}
+footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
+/* --- вікно з пунктом Положення --- */
+.modal{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;
+  padding:max(20px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+  background:rgba(8,12,22,.6)}
+.modal[hidden]{display:none !important}
+.modal-card{background:var(--surface);max-width:620px;width:100%;max-height:78vh;overflow:auto;border:1px solid var(--line);
+  padding:26px 24px;display:flex;flex-direction:column;gap:12px}
+.modal-card h3{color:var(--accent)}
+.modal-card p{font-size:1rem}
+.modal-foot{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:6px}
+.modal-foot a,.modal-foot button{font-family:var(--mono);font-size:.73rem;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--accent);background:none;border:0;border-bottom:1px solid currentColor;padding:0 0 1px;cursor:pointer}
+.modal-foot a:hover,.modal-foot button:hover{color:var(--accent2)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <span class="brand">Дуальна освіта · ФІПТ</span>
+    <nav aria-label="Розділи рубрики">
+      <a class="navlink" href="#shcho">Що це</a>
+      <a class="navlink" href="#yak">Як влаштовано</a>
+      <a class="navlink" href="#tsyfry">Цифри</a>
+      <a class="navlink" href="#partnery">Партнери</a>
+      <a class="navlink" href="#foto">Фото</a>
+      <a class="navlink" href="#dokumenty">Документи</a>
+      <a class="navlink" href="#pytannya">Запитання</a>
+      <a class="navlink" href="#kontakty">Контакти</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <p class="eyebrow">Факультет інженерних та прикладних технологій · Уманський національний університет</p>
+  <div class="hero-grid" style="margin-top:14px">
+    <div>
+      <h1>Дуальна<br>освіта</h1>
+      <p class="intro" style="margin-top:18px">Студент навчається в університеті й водночас працює за фахом на підприємстві — за трудовим договором, із зарплатою і наставником.</p>
+      <p class="kicker">Робота на підприємстві не додається до навчання, а зараховується замість частини аудиторних і самостійних годин. Диплом той самий, що й на звичайній формі.</p>
+    </div>
+    <div class="split">
+      <p class="eyebrow">Навчальний рік 2026–2027 · 1800 год · 60 кредитів ЄКТС</p>
+      <div class="splitbar" role="img" aria-label="810 годин в університеті, 990 годин на робочому місці">
+        <span class="u" style="flex:810">810 год</span>
+        <span class="e" style="flex:990">990 год</span>
+      </div>
+      <p class="legend"><span><i class="u"></i>В університеті · 27 кредитів</span><span><i class="e"></i>На робочому місці · 33 кредити</span></p>
+      <p style="font-size:.88rem;color:var(--muted)">Типовий розподіл для бакалавра й магістра агроінженерії. Положення дозволяє від 25 % до 60 % обсягу на робочому місці.</p>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>41</b><span>здобувач</span></div>
+    <div class="stat"><b>11</b><span>академічних груп</span></div>
+    <div class="stat"><b>23</b><span>підприємства</span></div>
+    <div class="stat"><b>55&nbsp;%</b><span>годин на роботі</span></div>
+  </div>
+</div>
+
+<section id="shcho" class="band">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">Коротко</p>
+      <h2>Що дає дуальна форма</h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3>Робота і стаж</h3>
+        <p>Здобувач оформлений на підприємстві: трудовий договір, запис у трудовій, зарплата, страховий стаж. До випуску в нього вже є досвід на реальній техніці, а не лише навчальна практика.</p>
+      </div>
+      <div class="card">
+        <h3>Зарахований обсяг</h3>
+        <p>Частину освітніх компонент здобувач опановує безпосередньо на виробництві. Це фіксує індивідуальний навчальний план: які теми, скільки годин і яким доказом підтверджуються.</p>
+      </div>
+      <div class="card">
+        <h3>Наставник і куратор</h3>
+        <p>На підприємстві за здобувачем закріплено наставника, від кафедри — куратора. Вони разом складають програму практичного навчання і стежать, щоб робота відповідала фаху.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="yak">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">Порядок</p>
+      <h2>Як це влаштовано</h2>
+      <p class="lede">Шість кроків від домовленості з підприємством до зарахування результатів. Кожен крок має свій документ за Положенням про дуальну форму здобуття вищої освіти.</p>
+    </div>
+    <p style="font-size:.86rem;color:var(--muted);margin-bottom:14px">Номери пунктів клікабельні — текст пункту Положення відкривається просто на сторінці. Підкреслені додатки відкривають готовий зразок документа.</p>
+    <div class="steps">
+      <div class="step">
+        <span class="n">01</span>
+        <h3>Підприємство подає подання</h3>
+        <p>Роботодавець підтверджує, що має виробничу базу, обладнання і персонал для підготовки здобувачів за фахом. Університет укладає з ним рамковий договір про співпрацю.</p>
+        <p class="doc"><a class="clause annex" href="dokumenty/zrazok-podannya.pdf" target="_blank" rel="noopener">Додаток&nbsp;А</a> · <a class="clause annex" href="dokumenty/zrazok-dogovir-spivpratsia.pdf" target="_blank" rel="noopener">Додаток&nbsp;Б</a></p>
+      </div>
+      <div class="step">
+        <span class="n">02</span>
+        <h3>Тристоронній договір</h3>
+        <p>Університет, підприємство і здобувач підписують договір про дуальну форму. Здобувач пише заяву про переведення; наказ визначає дату виходу на робоче місце.</p>
+        <p class="doc"><a class="clause annex" href="dokumenty/zrazok-dogovir-trystoronniy.pdf" target="_blank" rel="noopener">Додаток&nbsp;В</a> · <a class="clause annex" href="dokumenty/zrazok-zayava.pdf" target="_blank" rel="noopener">Додаток&nbsp;Г</a></p>
+      </div>
+      <div class="step">
+        <span class="n">03</span>
+        <h3>Індивідуальний навчальний план</h3>
+        <p>Кафедра розписує кожну освітню компоненту на дві колонки: що залишається в університеті, а що здобувач опановує на робочому місці. Загальний обсяг і кредити не змінюються.</p>
+        <p class="doc">Додаток Д</p>
+      </div>
+      <div class="step">
+        <span class="n">04</span>
+        <h3>Програма практичного навчання</h3>
+        <p>Куратор і наставник складають матрицю трудових функцій і результатів навчання, календарний графік та ротації між підрозділами — від машинно-тракторного парку до ремонтної майстерні й інженерної служби.</p>
+        <p class="doc">Додаток Е · <a class="clause" href="dokumenty/polozhennya-dualna-forma.pdf#page=9" target="_blank" rel="noopener">п.&nbsp;7.8</a></p>
+      </div>
+      <div class="step">
+        <span class="n">05</span>
+        <h3>Щоденник протягом року</h3>
+        <p>Здобувач записує виконані роботи і години, наставник підтверджує їх підписом наприкінці місяця.</p>
+        <p class="doc"><a class="clause" href="dokumenty/polozhennya-dualna-forma.pdf#page=9" target="_blank" rel="noopener">п.&nbsp;7.7</a></p>
+      </div>
+      <div class="step">
+        <span class="n">06</span>
+        <h3>Висновок наставника</h3>
+        <p>Наприкінці навчального року наставник оцінює досягнення програмних результатів навчання. Кафедра зараховує їх, невиконане завдання здобувач доопрацьовує в університеті.</p>
+        <p class="doc">Додаток Є · <a class="clause" href="dokumenty/polozhennya-dualna-forma.pdf#page=11" target="_blank" rel="noopener">п.&nbsp;9.2</a> · <a class="clause" href="dokumenty/polozhennya-dualna-forma.pdf#page=12" target="_blank" rel="noopener">п.&nbsp;9.4</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tsyfry" class="band">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">2026–2027 навчальний рік</p>
+      <h2>Групи й обсяги</h2>
+      <p class="lede">Обсяг на робочому місці рахується з навчального плану групи й округлюється до цілих кредитів.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Група</th><th>Спеціальність</th><th>Здобувачів</th><th>На робочому місці</th><th>Разом за рік</th><th>Розподіл</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="grp">11-ім</td><td>Агроінженерія</td><td class="num">5</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
+          <tr><td class="grp">12-ім</td><td>Агроінженерія</td><td class="num">5</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
+          <tr><td class="grp">21к-ім</td><td>Агроінженерія</td><td class="num">1</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
+          <tr><td class="grp">31-ім</td><td>Агроінженерія</td><td class="num">4</td><td class="num">975 год · 32,5 кр.</td><td class="num">1770 год</td><td><span class="bar"><i class="u" style="flex:795"></i><i class="e" style="flex:975"></i></span></td></tr>
+          <tr><td class="grp">31к-ім</td><td>Агроінженерія</td><td class="num">4</td><td class="num">1005 год · 33,5 кр.</td><td class="num">1830 год</td><td><span class="bar"><i class="u" style="flex:825"></i><i class="e" style="flex:1005"></i></span></td></tr>
+          <tr><td class="grp">41-ім</td><td>Агроінженерія</td><td class="num">3</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
+          <tr><td class="grp">43-ім</td><td>Агроінженерія</td><td class="num">2</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
+          <tr><td class="grp">11м-ім</td><td>Агроінженерія, магістри</td><td class="num">14</td><td class="num">990 год · 33 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:810"></i><i class="e" style="flex:990"></i></span></td></tr>
+          <tr><td class="grp">31-зм</td><td>Геодезія та землеустрій</td><td class="num">1</td><td class="num">675 год · 22,5 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:1125"></i><i class="e" style="flex:675"></i></span></td></tr>
+          <tr><td class="grp">41-зм</td><td>Геодезія та землеустрій</td><td class="num">1</td><td class="num">675 год · 22,5 кр.</td><td class="num">1800 год</td><td><span class="bar"><i class="u" style="flex:1125"></i><i class="e" style="flex:675"></i></span></td></tr>
+          <tr><td class="grp">11м-зм</td><td>Геодезія та землеустрій, магістри</td><td class="num">1</td><td class="num">675 год · 22,5 кр.</td><td class="num">1440 год</td><td><span class="bar"><i class="u" style="flex:765"></i><i class="e" style="flex:675"></i></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:14px;font-size:.86rem;color:var(--muted)">Здобувачі стають на робоче місце з 1, 12 або 19 жовтня 2026 року — залежно від дати наказу — і працюють до 30 червня 2027 року.</p>
+  </div>
+</section>
+
+<section id="partnery">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">Де працюють наші здобувачі</p>
+      <h2>Підприємства-партнери</h2>
+      <p class="lede">Від фермерських господарств до дилерських центрів і переробних комбінатів. Робоче місце підбирають так, щоб профіль підприємства збігався з профільними компонентами освітньої програми.</p>
+    </div>
+    <div class="partners">
+      <div class="pgroup">
+        <h3>Рослинництво і механізовані роботи</h3>
+        <ul>
+          <li>ПП «ЛЕВЧИК»</li>
+          <li>ТОВ «ПК «Зоря Поділля»</li>
+          <li>ПрАТ «ПК «Поділля»</li>
+          <li>СВК «Україна Молода»</li>
+          <li>ТОВ «Лебединська аграрна компанія»</li>
+          <li>ТОВ «Безпечна»</li>
+          <li>ТОВ «Поділля Енерго»</li>
+          <li>ФГ «Зосим»</li>
+          <li>ФГ «ЛЕНДОНАР»</li>
+          <li>ФОП Кірбай В. В.</li>
+        </ul>
+      </div>
+      <div class="pgroup">
+        <h3>Сервіс і дилерське обслуговування техніки</h3>
+        <ul>
+          <li>ТОВ «Нексат Україна»</li>
+          <li>ТОВ «ЕРІДОН ТЕХ»</li>
+          <li>ТОВ «ТК «Агроальянс»</li>
+          <li>ПП «Агровест Україна»</li>
+        </ul>
+      </div>
+      <div class="pgroup">
+        <h3>Автотранспорт і ремонт</h3>
+        <ul>
+          <li>ТОВ «МАКС БУС»</li>
+          <li>ТОВ «Максагротранс»</li>
+          <li>ФОП Нечипоренко А. П.</li>
+        </ul>
+      </div>
+      <div class="pgroup">
+        <h3>Переробне виробництво</h3>
+        <ul>
+          <li>ТОВ «УМАНЬПИВО»</li>
+          <li>ТОВ «Вінницький комбінат хлібопродуктів № 2»</li>
+        </ul>
+      </div>
+      <div class="pgroup">
+        <h3>Електрообладнання й автоматика</h3>
+        <ul>
+          <li>ТОВ «Пролайн Трейд»</li>
+        </ul>
+      </div>
+      <div class="pgroup">
+        <h3>Геодезія та землеустрій</h3>
+        <ul>
+          <li>ТОВ «ВІТ-ЕКСПЕРТ»</li>
+          <li>ФГ «ФСП ПЛЮС»</li>
+          <li>ФОП Стаценко А. О.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="foto">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">Як це виглядає</p>
+      <h2>Наші здобувачі на роботі</h2>
+      <p class="lede">Фотографії з підприємств: у полі, у ремонтній майстерні, за діагностикою, на вимірюваннях.</p>
+    </div>
+    <div class="gallery">
+      <figure>
+        <!-- Замінити вміст .shot на: <img src="foto/zdobuvach-01.jpg" alt="Здобувач на робочому місці"> -->
+        <div class="shot">фото 1<br>4:3, не менше 1200×900</div>
+      </figure>
+      <figure>
+        <!-- Замінити вміст .shot на: <img src="foto/zdobuvach-02.jpg" alt="Здобувач на робочому місці"> -->
+        <div class="shot">фото 2<br>4:3, не менше 1200×900</div>
+      </figure>
+      <figure>
+        <!-- Замінити вміст .shot на: <img src="foto/zdobuvach-03.jpg" alt="Здобувач на робочому місці"> -->
+        <div class="shot">фото 3<br>4:3, не менше 1200×900</div>
+      </figure>
+      <figure>
+        <!-- Замінити вміст .shot на: <img src="foto/zdobuvach-04.jpg" alt="Здобувач на робочому місці"> -->
+        <div class="shot">фото 4<br>4:3, не менше 1200×900</div>
+      </figure>
+      <figure>
+        <!-- Замінити вміст .shot на: <img src="foto/zdobuvach-05.jpg" alt="Здобувач на робочому місці"> -->
+        <div class="shot">фото 5<br>4:3, не менше 1200×900</div>
+      </figure>
+      <figure>
+        <!-- Замінити вміст .shot на: <img src="foto/zdobuvach-06.jpg" alt="Здобувач на робочому місці"> -->
+        <div class="shot">фото 6<br>4:3, не менше 1200×900</div>
+      </figure>
+    </div>
+    <p style="margin-top:16px;font-size:.86rem;color:var(--muted)">Місця під знімки позначені рамкою: горизонтальні фото 4:3, від 1200 пікселів завширшки. На публікацію знімка потрібна згода здобувача.</p>
+  </div>
+</section>
+
+<section id="dokumenty" class="band">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">Що завантажити</p>
+      <h2>Документи і форми</h2>
+      <p class="lede">Усі форми — додатки до Положення про дуальну форму здобуття вищої освіти в Уманському національному університеті.</p>
+    </div>
+    <div class="docs">
+      <div class="doc-item"><span class="tag">П</span><b>Положення про дуальну форму</b><span>Основний документ: порядок запровадження, моделі, обов’язки сторін, оцінювання.</span><span class="links"><a href="dokumenty/polozhennya-dualna-forma.pdf" target="_blank" rel="noopener">Відкрити PDF</a><a href="dokumenty/polozhennya-dualna-forma.docx" download>Завантажити DOCX</a></span><!-- файли: Положення_про_дуальну_форму_здобуття_вищої_освіти.pdf / Положення_про_дуальну_форму_здобуття_вищої_освіти.docx --></div>
+      <div class="doc-item"><span class="tag">А</span><b>Подання підприємства</b><span>Обґрунтування від роботодавця: база, обладнання, кількість робочих місць.</span><span class="links"><a href="dokumenty/zrazok-podannya.pdf" target="_blank" rel="noopener">Відкрити PDF</a><a href="dokumenty/zrazok-podannya.docx" download>Завантажити DOCX</a></span><!-- файли: Зразок_Подання_про_запровадження_дуальної_форми.pdf / .docx --></div>
+      <div class="doc-item"><span class="tag">Б</span><b>Рамковий договір</b><span>Договір про співпрацю між університетом і підприємством.</span><span class="links"><a href="dokumenty/zrazok-dogovir-spivpratsia.pdf" target="_blank" rel="noopener">Відкрити PDF</a><a href="dokumenty/zrazok-dogovir-spivpratsia.docx" download>Завантажити DOCX</a></span><!-- файли: Зразок_Договір_про_співпрацю_дуальна_форма.pdf / Зразок_Договір_про_співпрацю_дуальна_форма.docx --></div>
+      <div class="doc-item"><span class="tag">В</span><b>Тристоронній договір</b><span>Університет — підприємство — здобувач: права, обов'язки, строки.</span><span class="links"><a href="dokumenty/zrazok-dogovir-trystoronniy.pdf" target="_blank" rel="noopener">Відкрити PDF</a><a href="dokumenty/zrazok-dogovir-trystoronniy.docx" download>Завантажити DOCX</a></span><!-- файли: Зразок_Договір_тристоронній_дуальна_форма.pdf / Зразок_Договір_тристоронній_дуальна_форма.docx --></div>
+      <div class="doc-item"><span class="tag">Г</span><b>Заява здобувача</b><span>Про переведення на дуальну форму здобуття освіти.</span><span class="links"><a href="dokumenty/zrazok-zayava.pdf" target="_blank" rel="noopener">Відкрити PDF</a><a href="dokumenty/zrazok-zayava.docx" download>Завантажити DOCX</a></span><!-- файли: Зразок_Заява_про_перехід_на_дуальну_форму.pdf / Зразок_Заява_про_перехід_на_дуальну_форму.docx --></div>
+      <div class="doc-item"><span class="tag">Д</span><b>Індивідуальний навчальний план</b><span>Розподіл годин кожної освітньої компоненти між університетом і робочим місцем.</span><span class="soon">форму буде додано</span></div>
+      <div class="doc-item"><span class="tag">Е</span><b>Програма практичного навчання</b><span>Матриця трудових функцій, календарний графік, ротації, погодження сторін.</span><span class="soon">форму буде додано</span></div>
+      <div class="doc-item"><span class="tag">Є</span><b>Висновок наставника</b><span>Оцінка досягнення програмних результатів навчання за рік.</span><span class="soon">форму буде додано</span></div>
+      <div class="doc-item"><span class="tag">Ж</span><b>Щорічний звіт</b><span>Звіт кафедри про результати дуальної форми за навчальний рік.</span><span class="soon">форму буде додано</span></div>
+    </div>
+    <p style="margin-top:14px;font-size:.86rem;color:var(--muted)">Файли лежать у папці <span class="mono">dokumenty/</span> поряд зі сторінкою: PDF відкривається у новій вкладці, DOCX завантажується. Персональні дані зі зразків вилучено — залишилися тільки поля для заповнення.</p>
+  </div>
+</section>
+
+<section id="pytannya">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">Що питають найчастіше</p>
+      <h2>Запитання і відповіді</h2>
+    </div>
+    <details open>
+      <summary>Чи платять здобувачу на підприємстві?</summary>
+      <p>Так. Дуальна форма передбачає оформлення на роботу: трудовий договір, посада, зарплата і страховий стаж. Розмір оплати визначає роботодавець за штатним розписом.</p>
+    </details>
+    <details>
+      <summary>Як поєднати роботу з розкладом занять?</summary>
+      <p>Графік складають заздалегідь: конкретні дні на робочому місці визначає роботодавець за погодженням з куратором і фіксує в табелі обліку робочого часу. Календарний графік і ротації — частина програми практичного навчання, яку підписують обидві сторони.</p>
+    </details>
+    <details>
+      <summary>Скільки годин можна перенести на підприємство?</summary>
+      <p>Від 25 % до 60 % обсягу освітньої програми. У нас це здебільшого 55 % — 990 годин із 1800 за навчальний рік. Виробнича практика і кваліфікаційна робота виконуються на робочому місці повністю, а захист — в університеті.</p>
+    </details>
+    <details>
+      <summary>Чи відрізняється диплом?</summary>
+      <p>Ні. Освітня програма, перелік компонент і кількість кредитів ті самі. Змінюється тільки місце, де здобувач опановує частину з них.</p>
+    </details>
+    <details>
+      <summary>Що як робота не сподобається?</summary>
+      <p>Здобувач може відмовитися від дуальної форми і повернутися до звичайного навчання. Зараховані результати при цьому не скасовуються.</p>
+    </details>
+    <details>
+      <summary>Що робить наставник?</summary>
+      <p>Проводить інструктажі з охорони праці, допускає до роботи, веде здобувача по підрозділах за графіком ротацій, підтверджує години у щоденнику і наприкінці року готує висновок про досягнуті результати навчання.</p>
+    </details>
+    <details>
+      <summary>Що як якесь завдання не виконано?</summary>
+      <p>Одне невиконане завдання не означає негативного висновку. Таку компоненту здобувач доопрацьовує в університеті в звичайному порядку.</p>
+    </details>
+  </div>
+</section>
+
+<section class="band-surface">
+  <div class="wrap sec">
+    <div class="calls">
+      <div class="call">
+        <p class="eyebrow">Здобувачу</p>
+        <h3>Хочу на дуальну форму</h3>
+        <ol>
+          <li>Знайдіть підприємство за фахом або оберіть із переліку партнерів.</li>
+          <li>Зверніться до куратора групи — він перевірить, чи профіль підприємства підходить до вашої освітньої програми.</li>
+          <li>Напишіть заяву; далі кафедра готує договір і індивідуальний навчальний план.</li>
+        </ol>
+      </div>
+      <div class="call">
+        <p class="eyebrow">Роботодавцю</p>
+        <h3>Хочу взяти здобувача</h3>
+        <ol>
+          <li>Надішліть подання: вид діяльності, робочі місця, кандидатура наставника.</li>
+          <li>Підпишемо рамковий і тристоронній договори.</li>
+          <li>Разом із куратором складаємо програму практичного навчання під ваші виробничі процеси.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kontakty" class="band">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">Куди звертатися</p>
+      <h2>Контакти</h2>
+    </div>
+    <div class="contact">
+      <div class="row"><span>Координатор від факультету</span><b>Мережко Сніжана Олегівна</b></div>
+      <div class="row"><span>Кафедра</span><b>Агроінженерії, факультет інженерних та прикладних технологій</b></div>
+      <div class="row"><span>Телефон</span><b class="mono">050 608 35 44</b></div>
+      <div class="row"><span>Електронна пошта</span><b class="mono">merezhkosnizana@gmail.com</b></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Макет рубрики для сайту факультету.</span>
+    <span>Дані — 2026–2027 навчальний рік.</span>
+  </div>
+</footer>
+
+
+<div class="modal" id="clause-modal" hidden role="dialog" aria-modal="true" aria-labelledby="clause-title">
+  <div class="modal-card">
+    <h3 id="clause-title"></h3>
+    <p id="clause-text"></p>
+    <div class="modal-foot">
+      <a id="clause-pdf" href="dokumenty/polozhennya-dualna-forma.pdf" target="_blank" rel="noopener">Відкрити Положення повністю</a>
+      <button type="button" id="clause-close">Закрити</button>
+    </div>
+  </div>
+</div>
+<script id="clause-data" type="application/json">{"7.7": "Здобувач фіксує результати навчання.", "7.8": "Навчання може передбачати ротацію між підрозділами, посадами, робочими місцями або роботодавцями. Кожна ротація має бути відображена в програмі практичного навчання і забезпечувати досягнення визначених результатів.", "9.2": "Наставник і координатор від роботодавця надають висновок щодо досягнення результатів навчання (Додаток Є). Остаточне академічне рішення про оцінку, зарахування освітнього компонента та присвоєння кредитів ЄКТС приймає Університет.", "9.4": "Невиконання окремого завдання не може автоматично спричиняти негативне оцінювання всього освітнього компонента. Здобувачу надається можливість усунути недоліки або виконати альтернативне завдання, якщо це не суперечить вимогам безпеки та освітньої програми."}</script>
+<script>
+(() => {
+  const data = JSON.parse(document.getElementById('clause-data').textContent);
+  const modal = document.getElementById('clause-modal');
+  const title = document.getElementById('clause-title');
+  const text = document.getElementById('clause-text');
+  const pdf = document.getElementById('clause-pdf');
+  const closeBtn = document.getElementById('clause-close');
+  let last = null;
+  document.querySelectorAll('a.clause').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const m = a.textContent.match(/(\d+\.\d+)/);
+      if (!m || !data[m[1]]) return;
+      e.preventDefault();
+      last = a;
+      title.textContent = 'Пункт ' + m[1] + ' Положення';
+      text.textContent = data[m[1]];
+      pdf.setAttribute('href', a.getAttribute('href'));
+      modal.hidden = false;
+      closeBtn.focus();
+    });
+  });
+  const hide = () => { modal.hidden = true; if (last) last.focus(); };
+  closeBtn.addEventListener('click', hide);
+  modal.addEventListener('click', (e) => { if (e.target === modal) hide(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) hide(); });
+})();
+</script>
+</body>
+</html>
