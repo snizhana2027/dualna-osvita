@@ -186,6 +186,15 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
   color:var(--accent);background:none;border:0;border-bottom:1px solid currentColor;padding:0 0 1px;cursor:pointer}
 .modal-foot a:hover,.modal-foot button:hover{color:var(--accent2)}
 
+/* --- сторінки --- */
+main{display:block}
+.page{display:none}
+.page.active{display:block;animation:pagein .4s ease}
+@media (prefers-reduced-motion:reduce){.page.active{animation:none}}
+@keyframes pagein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.brand{cursor:pointer}
+.navlink{cursor:pointer}
+
 /* --- оживлення --- */
 .statband{background:var(--headerbg);color:#fff;border-block:3px solid var(--ent)}
 .statband .wrap{padding-block:clamp(34px,5.5vw,62px);display:grid;gap:clamp(24px,4vw,46px);grid-template-columns:1fr}
@@ -249,18 +258,20 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
   <div class="wrap">
     <span class="brand">Дуальна освіта · ФІПТ</span>
     <nav aria-label="Розділи рубрики">
-      <a class="navlink" href="#shcho">Що це</a>
-      <a class="navlink" href="#yak">Як влаштовано</a>
-      <a class="navlink" href="#tsyfry">Цифри</a>
-      <a class="navlink" href="#partnery">Партнери</a>
-      <a class="navlink" href="#foto">Фото</a>
-      <a class="navlink" href="#dokumenty">Документи</a>
-      <a class="navlink" href="#pytannya">Запитання</a>
-      <a class="navlink" href="#kontakty">Контакти</a>
+      <a class="navlink" href="#home" data-page="home">Головна</a>
+      <a class="navlink" href="#yak" data-page="yak">Як влаштовано</a>
+      <a class="navlink" href="#tsyfry" data-page="tsyfry">Групи</a>
+      <a class="navlink" href="#partnery" data-page="partnery">Партнери</a>
+      <a class="navlink" href="#foto" data-page="foto">Фото</a>
+      <a class="navlink" href="#dokumenty" data-page="dokumenty">Документи</a>
+      <a class="navlink" href="#pytannya" data-page="pytannya">Запитання</a>
+      <a class="navlink" href="#kontakty" data-page="kontakty">Контакти</a>
     </nav>
   </div>
 </header>
 
+<main>
+<div class="page" id="p-home">
 <div class="wrap hero">
   <p class="eyebrow">Факультет інженерних та прикладних технологій · Уманський національний університет</p>
   <div class="hero-grid" style="margin-top:14px">
@@ -331,7 +342,9 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
     </div>
   </div>
 </section>
+</div>
 
+<div class="page" id="p-yak">
 <section id="yak">
   <div class="wrap sec">
     <div class="sechead">
@@ -380,8 +393,10 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
     </div>
   </div>
 </section>
+</div>
 
-<section id="tsyfry" class="band">
+<div class="page" id="p-tsyfry">
+<section id="tsyfry">
   <div class="wrap sec">
     <div class="sechead">
       <p class="eyebrow">2026–2027 навчальний рік</p>
@@ -416,7 +431,9 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
     <p style="margin-top:14px;font-size:.86rem;color:var(--muted)">Здобувачі стають на робоче місце з 1, 12 або 19 жовтня 2026 року — залежно від дати наказу — і працюють до 30 червня 2027 року.</p>
   </div>
 </section>
+</div>
 
+<div class="page" id="p-partnery">
 <section id="partnery">
   <div class="wrap sec">
     <div class="sechead">
@@ -481,7 +498,9 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
     </div>
   </div>
 </section>
+</div>
 
+<div class="page" id="p-foto">
 <section id="foto">
   <div class="wrap sec">
     <div class="sechead">
@@ -505,8 +524,10 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
     <p style="margin-top:16px;font-size:.86rem;color:var(--muted)">На публікацію знімків отримано згоду здобувачів.</p>
   </div>
 </section>
+</div>
 
-<section id="dokumenty" class="band">
+<div class="page" id="p-dokumenty">
+<section id="dokumenty">
   <div class="wrap sec">
     <div class="sechead">
       <p class="eyebrow">Що завантажити</p>
@@ -526,7 +547,9 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
     </div>
   </div>
 </section>
+</div>
 
+<div class="page" id="p-pytannya">
 <section id="pytannya">
   <div class="wrap sec">
     <div class="sechead">
@@ -559,7 +582,9 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
     </details>
   </div>
 </section>
+</div>
 
+<div class="page" id="p-kontakty">
 <section class="band-surface">
   <div class="wrap sec">
     <div class="calls">
@@ -585,7 +610,7 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
   </div>
 </section>
 
-<section id="kontakty" class="band">
+<section id="kontakty">
   <div class="wrap sec">
     <div class="sechead">
       <p class="eyebrow">Куди звертатися</p>
@@ -599,7 +624,8 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
     </div>
   </div>
 </section>
-
+</div>
+</main>
 <footer>
   <div class="wrap">
     <span>Дані — 2026–2027 навчальний рік.</span>
@@ -680,20 +706,6 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
     }, {threshold:.6});
     stats.forEach(function(e){ io2.observe(e); });
   }
-  var links = [].slice.call(document.querySelectorAll('.navlink'));
-  if (has) {
-    var io3 = new IntersectionObserver(function(xs){
-      xs.forEach(function(x){
-        if (x.isIntersecting) links.forEach(function(a){
-          a.classList.toggle('active', a.getAttribute('href') === '#' + x.target.id);
-        });
-      });
-    }, {rootMargin:'-45% 0px -50% 0px'});
-    links.forEach(function(a){
-      var s = document.querySelector(a.getAttribute('href'));
-      if (s) io3.observe(s);
-    });
-  }
   var lb = document.getElementById('lightbox'), lbi = lb && lb.querySelector('img');
   [].slice.call(document.querySelectorAll('.shot.filled img')).forEach(function(img){
     img.addEventListener('click', function(){ lbi.src = img.currentSrc || img.src; lb.hidden = false; });
@@ -702,6 +714,30 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
     lb.addEventListener('click', function(){ lb.hidden = true; });
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape') lb.hidden = true; });
   }
+})();
+</script>
+
+<script>
+(function(){
+  var pages = [].slice.call(document.querySelectorAll('.page'));
+  var links = [].slice.call(document.querySelectorAll('.navlink'));
+  var brand = document.querySelector('.brand');
+  function show(id, push){
+    if (!pages.some(function(p){ return p.id === 'p-' + id; })) id = 'home';
+    pages.forEach(function(p){ p.classList.toggle('active', p.id === 'p-' + id); });
+    links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('data-page') === id); });
+    if (push) {
+      try { history.pushState(null, '', '#' + id); } catch(e) { location.hash = id; }
+    }
+    window.scrollTo(0, 0);
+  }
+  links.forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); show(a.getAttribute('data-page'), true); });
+  });
+  if (brand) brand.addEventListener('click', function(){ show('home', true); });
+  window.addEventListener('popstate', function(){ show((location.hash || '#home').slice(1), false); });
+  window.addEventListener('hashchange', function(){ show((location.hash || '#home').slice(1), false); });
+  show((location.hash || '#home').slice(1), false);
 })();
 </script>
 
