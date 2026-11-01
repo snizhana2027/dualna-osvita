@@ -186,6 +186,21 @@ footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:8px 26px}
   color:var(--accent);background:none;border:0;border-bottom:1px solid currentColor;padding:0 0 1px;cursor:pointer}
 .modal-foot a:hover,.modal-foot button:hover{color:var(--accent2)}
 
+/* --- об'єм --- */
+.card,.call{box-shadow:0 1px 2px rgba(19,26,42,.05)}
+.shot.filled{box-shadow:0 10px 26px -16px rgba(19,26,42,.5)}
+.docs{box-shadow:0 10px 30px -22px rgba(19,26,42,.5)}
+.stats{box-shadow:0 10px 30px -24px rgba(19,26,42,.45)}
+.tablewrap{box-shadow:0 10px 30px -24px rgba(19,26,42,.45)}
+@media (hover:hover) and (pointer:fine){
+  .card,.call,.shot.filled{transition:transform .22s cubic-bezier(.22,.8,.2,1),box-shadow .22s ease;will-change:transform}
+  .card:hover,.call:hover{box-shadow:0 20px 38px -20px rgba(19,26,42,.38)}
+  .shot.filled:hover{box-shadow:0 26px 48px -22px rgba(19,26,42,.55)}
+  .stat:hover{box-shadow:0 14px 28px -18px rgba(19,26,42,.4)}
+  .doc-item:hover{box-shadow:inset 3px 0 0 var(--ent)}
+}
+@media (prefers-reduced-motion:reduce){.card,.call,.shot.filled{transition:none}}
+
 /* --- заставки розділів --- */
 .pagehead{position:relative;overflow:hidden;background:var(--headerbg);color:#fff;border-bottom:3px solid var(--ent)}
 .pagehead .wrap{position:relative;z-index:2;padding-block:clamp(32px,5vw,58px)}
@@ -784,6 +799,39 @@ main{display:block}
   window.addEventListener('popstate', function(){ show((location.hash || '#home').slice(1), false); });
   window.addEventListener('hashchange', function(){ show((location.hash || '#home').slice(1), false); });
   show((location.hash || '#home').slice(1), false);
+})();
+</script>
+
+<script>
+(function(){
+  var fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (fine && !rm) {
+    [].slice.call(document.querySelectorAll('.card, .call, .shot.filled')).forEach(function(el){
+      el.addEventListener('pointermove', function(e){
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - .5;
+        var y = (e.clientY - r.top) / r.height - .5;
+        el.style.transform = 'perspective(900px) rotateX(' + (-y * 4.5).toFixed(2) + 'deg) rotateY(' +
+                             (x * 5.5).toFixed(2) + 'deg) translateY(-4px)';
+      });
+      el.addEventListener('pointerleave', function(){ el.style.transform = ''; });
+    });
+  }
+  if (!rm) {
+    var ticking = false;
+    window.addEventListener('scroll', function(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){
+        var y = window.scrollY || 0;
+        [].slice.call(document.querySelectorAll('.page.active .pagehead .deco')).forEach(function(d, i){
+          d.style.transform = 'translate3d(0,' + (y * (i ? .10 : .18)).toFixed(1) + 'px,0)';
+        });
+        ticking = false;
+      });
+    }, {passive:true});
+  }
 })();
 </script>
 
